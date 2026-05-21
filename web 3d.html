@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>EduPrint Future — Advanced 3D Printing Ecosystem</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:
+    radial-gradient(circle at top left,#ffe7f5 0%,transparent 25%),
+    radial-gradient(circle at bottom right,#efe4ff 0%,transparent 30%),
+    linear-gradient(to bottom,#ffffff,#fff8fd);
+    color:#1f1f25;
+    overflow-x:hidden;
+}
+
+:root{
+    --pink:#ff5ec7;
+    --soft-pink:#ffe4f4;
+    --purple:#8b5cf6;
+    --soft-purple:#f3ecff;
+    --text:#1d1d1f;
+    --muted:#6b7280;
+    --border:#ece6f5;
+}
+
+section{
+    padding:110px 8%;
+}
+
+.container{
+    max-width:1450px;
+    margin:auto;
+}
+
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:999;
+    backdrop-filter:blur(18px);
+    background:rgba(255,255,255,0.82);
+    border-bottom:1px solid rgba(255,255,255,0.6);
+}
+
+.nav-content{
+    height:78px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    font-size:1.3rem;
+    font-weight:800;
+    background:linear-gradient(90deg,var(--pink),var(--purple));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.nav-links{
+    display:flex;
+    gap:34px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#555;
+    font-size:0.95rem;
+    font-weight:500;
+    transition:0.3s;
+}
+
+.nav-links a:hover{
+    color:var(--purple);
+}
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero::before{
+    content:'';
+    position:absolute;
+    width:700px;
+    height:700px;
+    background:linear-gradient(180deg,#ffd6ef,#efe1ff);
+    border-radius:50%;
+    filter:blur(120px);
+    top:-200px;
+    right:-100px;
+    opacity:0.7;
+}
+
+.hero-badge{
+    display:inline-block;
+    padding:12px 24px;
+    background:white;
+    border:1px solid var(--border);
+    border-radius:999px;
+    margin-bottom:30px;
+    font-size:0.92rem;
+    color:#555;
+    box-shadow:0 8px 30px rgba(255,94,199,0.08);
+}
+
+.hero h1{
+    font-size:5.6rem;
+    line-height:0.95;
+    letter-spacing:-4px;
+    font-weight:900;
+    margin-bottom:28px;
+}
+
+.gradient{
+    background:linear-gradient(90deg,var(--pink),var(--purple));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+    max-width:950px;
+    margin:auto;
+    line-height:1.9;
+    color:var(--muted);
+    font-size:1.12rem;
+}
+
+.hero-buttons{
+    margin-top:42px;
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:17px 30px;
+    border-radius:999px;
+    text-decoration:none;
+    font-weight:700;
+    transition:0.3s;
+}
+
+.btn-primary{
+    background:linear-gradient(90deg,var(--pink),var(--purple));
+    color:white;
+    box-shadow:0 15px 40px rgba(139,92,246,0.2);
+}
+
+.btn-secondary{
+    background:white;
+    color:#333;
+    border:1px solid var(--border);
+}
+
+.btn:hover{
+    transform:translateY(-4px);
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:70px;
+}
+
+.section-title h2{
+    font-size:3.2rem;
+    letter-spacing:-2px;
+    margin-bottom:18px;
+}
+
+.section-title p{
+    max-width:900px;
+    margin:auto;
+    line-height:1.9;
+    color:var(--muted);
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:25px;
+}
+
+.stat-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:32px;
+    padding:40px;
+    text-align:center;
+    box-shadow:0 15px 40px rgba(255,94,199,0.06);
+}
+
+.stat-card h3{
+    font-size:3rem;
+    margin-bottom:12px;
+    background:linear-gradient(90deg,var(--pink),var(--purple));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.stat-card p{
+    color:var(--muted);
+}
+
+.range-box{
+    background:white;
+    border-radius:35px;
+    border:1px solid var(--border);
+    padding:45px;
+    margin-top:70px;
+    box-shadow:0 20px 60px rgba(139,92,246,0.08);
+}
+
+.range-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.range-title h3{
+    font-size:2rem;
+    margin-bottom:10px;
+}
+
+.range-title p{
+    color:var(--muted);
+}
+
+.price-output{
+    min-width:240px;
+    padding:20px 26px;
+    border-radius:24px;
+    background:linear-gradient(135deg,#ffe6f6,#f1e9ff);
+    text-align:center;
+}
+
+.price-output span{
+    display:block;
+    color:#666;
+    font-size:0.9rem;
+    margin-bottom:8px;
+}
+
+.price-output h2{
+    font-size:2.4rem;
+    color:var(--purple);
+}
+
+input[type=range]{
+    width:100%;
+    height:12px;
+    border-radius:999px;
+    appearance:none;
+    background:linear-gradient(90deg,var(--pink),var(--purple));
+    outline:none;
+}
+
+input[type=range]::-webkit-slider-thumb{
+    appearance:none;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background:white;
+    border:5px solid var(--purple);
+    cursor:pointer;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+.scale{
+    display:flex;
+    justify-content:space-between;
+    margin-top:16px;
+    font-size:0.92rem;
+    color:#777;
+}
+
+.printer-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+    gap:34px;
+}
+
+.printer-card{
+    background:white;
+    border-radius:36px;
+    overflow:hidden;
+    border:1px solid var(--border);
+    transition:0.4s;
+    position:relative;
+    box-shadow:0 15px 45px rgba(139,92,246,0.05);
+}
+
+.printer-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 30px 70px rgba(255,94,199,0.12);
+}
+
+.printer-image{
+    height:260px;
+    background:linear-gradient(145deg,#fff0f7,#f4ebff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    position:relative;
+}
+
+.printer-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.placeholder{
+    text-align:center;
+    color:#777;
+}
+
+.placeholder span{
+    font-size:5rem;
+    display:block;
+    margin-bottom:12px;
+}
+
+.printer-content{
+    padding:35px;
+}
+
+.tag{
+    display:inline-block;
+    padding:8px 16px;
+    border-radius:999px;
+    background:linear-gradient(90deg,#ffe4f4,#f1e8ff);
+    color:#7c3aed;
+    font-size:0.8rem;
+    font-weight:700;
+    margin-bottom:20px;
+}
+
+.printer-content h3{
+    font-size:1.7rem;
+    margin-bottom:12px;
+}
+
+.printer-content p{
+    color:var(--muted);
+    line-height:1.8;
+}
+
+.specs{
+    margin-top:22px;
+}
+
+.specs li{
+    list-style:none;
+    margin-bottom:12px;
+    color:#444;
+    font-size:0.95rem;
+}
+
+.specs li span{
+    font-weight:700;
+}
+
+.price{
+    margin-top:25px;
+    font-size:2rem;
+    font-weight:800;
+    color:var(--purple);
+}
+
+.buy-btn{
+    display:inline-block;
+    margin-top:24px;
+    padding:14px 24px;
+    border-radius:999px;
+    text-decoration:none;
+    background:linear-gradient(90deg,var(--pink),var(--purple));
+    color:white;
+    font-weight:700;
+    transition:0.3s;
+}
+
+.buy-btn:hover{
+    transform:scale(1.04);
+}
+
+.chart-box{
+    margin-top:55px;
+    padding:45px;
+    background:white;
+    border:1px solid var(--border);
+    border-radius:35px;
+}
+
+.chart-box h3{
+    margin-bottom:10px;
+    font-size:2rem;
+}
+
+.chart-box p{
+    margin-bottom:30px;
+    color:var(--muted);
+}
+
+footer{
+    padding:90px 8%;
+    background:linear-gradient(180deg,#fff6fb,#f7f1ff);
+    text-align:center;
+    border-top:1px solid var(--border);
+}
+
+footer h2{
+    font-size:2.5rem;
+    margin-bottom:15px;
+}
+
+footer p{
+    max-width:700px;
+    margin:auto;
+    line-height:1.8;
+    color:var(--muted);
+}
+
+.footer-bottom{
+    margin-top:40px;
+    color:#999;
+}
+
+.fade-up{
+    opacity:0;
+    transform:translateY(40px);
+    transition:1s;
+}
+
+.fade-up.active{
+    opacity:1;
+    transform:translateY(0);
+}
+
+@media(max-width:900px){
+
+.hero h1{
+    font-size:3.5rem;
+}
+
+.section-title h2{
+    font-size:2.3rem;
+}
+
+.nav-links{
+    display:none;
+}
+
+}
+
+/* STYLING TAMBAHAN UNTUK REKOMENDASI BUDGET */
+.recommendation-box {
+    margin-top: 20px;
+    padding: 15px 20px;
+    background: #fdf8ff;
+    border-left: 4px solid var(--purple);
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+.recommendation-box strong {
+    color: var(--text);
+}
+
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+<div class="container nav-content">
+
+<div class="logo">EduPrint Future</div>
+
+<div class="nav-links">
+<a href="#technology">Technology</a>
+<a href="#budget">Budget</a>
+<a href="#printers">Printers</a>
+<a href="#analytics">Analytics</a>
+</div>
+
+</div>
+</nav>
+
+<section class="hero">
+
+<div class="container fade-up">
+
+<div class="hero-badge">
+🚀 Advanced Educational Fabrication Ecosystem
+</div>
+
+<h1>
+Architecting <span class="gradient">Innovation</span><br>
+Through 3D Printing
+</h1>
+
+<p>
+Modern educational fabrication environments demand intelligent ecosystems integrating high-speed manufacturing, AI-assisted calibration, multi-material engineering, cloud-connected laboratories, and sustainable prototyping workflows. Educational institutions are no longer simply using printers — they are building collaborative innovation infrastructures.
+</p>
+
+<div class="hero-buttons">
+<a href="#printers" class="btn btn-primary">Explore Printers</a>
+<a href="#analytics" class="btn btn-secondary">View Analytics</a>
+</div>
+
+</div>
+
+</section>
+
+<section id="technology">
+
+<div class="container">
+
+<div class="section-title fade-up">
+<h2>⚙️ Educational Technology Metrics</h2>
+
+<p>
+Modern educational laboratories prioritize speed, automation, precision engineering, and scalable collaborative manufacturing systems.
+</p>
+</div>
+
+<div class="stats">
+
+<div class="stat-card fade-up">
+<h3>700</h3>
+<p>Maximum Printing Speed (mm/s)</p>
+</div>
+
+<div class="stat-card fade-up">
+<h3>1000</h3>
+<p>Largest Build Height (mm)</p>
+</div>
+
+<div class="stat-card fade-up">
+<h3>420°C</h3>
+<p>Maximum Nozzle Temperature</p>
+</div>
+
+<div class="stat-card fade-up">
+<h3>4-Color</h3>
+<p>Multi-Material Printing Support</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="budget">
+
+<div class="container">
+
+<div class="section-title fade-up">
+<h2>💸 Dynamic Budget Scale</h2>
+
+<p>
+Adjust the budget scale to visualize educational 3D printing investment categories and recommended ecosystems.
+</p>
+</div>
+
+<div class="range-box fade-up">
+
+<div class="range-top">
+
+<div class="range-title">
+<h3>Interactive Price Estimator</h3>
+<p>Educational ecosystem scaling based on hardware capability (in IDR).</p>
+</div>
+
+<div class="price-output">
+<span>Estimated Budget</span>
+<h2 id="budgetValue">Rp 15.000.000</h2>
+</div>
+
+</div>
+
+<!-- Mengubah rentang input range agar sesuai dengan range harga printer rupiah Anda (4.5 Juta - 600 Juta) -->
+<input type="range" min="4000000" max="600000000" value="15000000" id="budgetRange">
+
+<div class="scale">
+<span>Rp 4.000.000</span>
+<span>Rp 20.000.000</span>
+<span>Rp 100.000.000</span>
+<span>Rp 570.000.000+</span>
+</div>
+
+<!-- Tempat Rekomendasi Printer Muncul Secara Dinamis -->
+<div class="recommendation-box" id="budgetRecommendation">
+    <strong>Recommended System:</strong> <span id="recommendedPrinter">Flashforge Adventurer AD5X / Anycubic Kobra 3 Max</span>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="printers">
+
+<div class="container">
+
+<div class="section-title fade-up">
+<h2>🖨️ Advanced 3D Printer Ecosystem</h2>
+
+<p>
+All printers below are clickable and can redirect directly to product pages. Replace image placeholders with your own product images.
+</p>
+</div>
+
+<div class="printer-grid">
+
+<!-- 1: BambuLab A1 Mini -->
+
+<div class="printer-card fade-up">
+
+<div class="printer-image">
+<img src="BAMBU LAB A1 MINI 3D.png" alt="">
+</div>
+
+<div class="printer-content">
+
+<div class="tag">Entry Education</div>
+
+<h3>Bambu Lab A1 Mini</h3>
+
+<p>
+Compact intelligent educational printer optimized for beginner-friendly STEM laboratories.
+</p>
+
+<ul class="specs">
+<li><span>Build Volume:</span> 180 × 180 × 180 mm (18 x 18 x 18 cm)</li>
+<li><span>Print Speed:</span> Up to 500 mm/s</li>
+<li><span>Calibration:</span> Fully automatic auto calibration</li>
+<li><span>Acoustics:</span> Silent printing &lt;48 dB</li>
+<li><span>Motion System:</span> High-precision linear rails</li>
+<li><span>Monitoring:</span> Built-in camera monitoring</li>
+<li><span>Materials:</span> PLA, PETG, TPU, PVA</li>
+<li><span>Hotend System:</span> All-metal hotend up to 300°C</li>
+<li><span>Connectivity:</span> Remote printing via Cloud, LAN, and Mobile App</li>
+<li><span>Warranty:</span> 1-Year official spare parts warranty</li>
+</ul>
+
+<div class="price">Rp 4.509.000</div>
+
+<a href=" https://www.tokopedia.com/3dzaiku/bambulab-a1-mini-high-speed-silent-driver-auto-calibration-3d-printer-linear-rail-1733757198085620832?extParam=src%3Dshop%26whid%3D3974218&aff_unique_id=&channel=others&chain_key= 
+" target="_blank" class="buy-btn">
+View Product
+</a>
+
+</div>
+
+</div>
+
+<!-- 2: Flashforge Adventurer AD5X -->
+
+<div class="printer-card fade-up">
+
+<div class="printer-image">
+<img src="Flashforge AD5X.png" alt="">
+</div>
+
+<div class="printer-content">
+
+<div class="tag">Creative Classroom</div>
+
+<h3>Flashforge Adventurer AD5X</h3>
+
+<p>
+Multi-color educational fabrication platform for design and engineering workflows.
+</p>
+
+<ul class="specs">
+<li><span>Build Volume:</span> 220 × 220 × 220 mm (22 x 22 x 22 cm)</li>
+<li><span>Multi-Color:</span> Multi-color printing up to 4 colors/materials</li>
+<li><span>Architecture:</span> CoreXY + Klipper high-speed system</li>
+<li><span>Print Speed:</span> Up to 600 mm/s</li>
+<li><span>Bed Leveling:</span> Automatic leveling</li>
+<li><span>Hotend System:</span> Hotend temperatures up to 300°C</li>
+<li><span>Materials:</span> ABS, PLA, Nylon, PETG, TPU, PVA, and more</li>
+<li><span>Kinematics:</span> Vibration compensation technology</li>
+<li><span>Connectivity:</span> Cloud printing & Wi-Fi support</li>
+<li><span>Acoustics:</span> Silent board system</li>
+<li><span>Warranty:</span> 1-Year official spare parts warranty</li>
+</ul>
+
+<div class="price">Rp 8.500.000</div>
+
+<a href="https://www.tokopedia.com/3dzaiku/flashforge-adventurer-ad5x-multi-color-3d-printer-high-speed-high-temperature-autolevel-corexy-1731840926384948320?extParam=src%3Dshop%26whid%3D3974218&aff_unique_id=&channel=others&chain_key=" target="_blank" class="buy-btn">
+View Product
+</a>
+
+</div>
+
+</div>
+
+<!-- 3: BambuLab A1 Combo AMS -->
+
+<div class="printer-card fade-up">
+
+<div class="printer-image">
+<img src="BambuLab A1 Combo AMS.png" alt="">
+</div>
+
+<div class="printer-content">
+
+<div class="tag">Advanced STEM</div>
+
+<h3>BambuLab A1 Combo AMS</h3>
+
+<p>
+Versatile multi-material printing station equipped with automatic system integration.
+</p>
+
+<ul class="specs">
+<li><span>Build Volume:</span> 256 × 256 × 256 mm (25.6 x 25.6 x 25.6 cm)</li>
+<li><span>Material System:</span> Includes AMS Multi Material System</li>
+<li><span>Multi-Color:</span> Prints 4 colors or materials simultaneously</li>
+<li><span>Calibration:</span> Automatic calibration technology</li>
+<li><span>Monitoring:</span> Camera monitoring integrated</li>
+<li><span>Acoustics:</span> Engineered for silent printing</li>
+<li><span>Motion System:</span> Linear rail precision structure</li>
+<li><span>Print Speed:</span> High speed up to 500 mm/s</li>
+<li><span>Hotend System:</span> All-metal hotend up to 300°C</li>
+<li><span>Connectivity:</span> Remote control via Cloud & Mobile App</li>
+<li><span>Warranty:</span> 1-Year official spare parts warranty</li>
+</ul>
+
+<div class="price">Rp 9.990.000</div>
+
+<a href="https://www.tokopedia.com/3dzaiku/bambulab-a1-combo-with-ams-multi-material-3d-printer-linear-rail-1732586237062186080?extParam=whid%3D3974218%26src%3Dshop&aff_unique_id=&channel=others&chain_key= 
+" target="_blank" class="buy-btn">
+View Product
+</a>
+
+</div>
+
+</div>
+
+<!-- 4: BambuLab H2S Combo AMS 2 PRO -->
+
+<div class="printer-card fade-up">
+
+<div class="printer-image">
+<img src="BambuLab H2S Combo AMS 2 PRO.png" alt="">
+</div>
+
+<div class="printer-content">
+
+<div class="tag">Professional Lab</div>
+
+<h3>BambuLab H2S Combo AMS 2 PRO</h3>
+
+<p>
+Professional fabrication ecosystem supporting industrial educational prototyping.
+</p>
+
+<ul class="specs">
+<li><span>Build Volume:</span> 340 × 320 × 340 mm (34 x 32 x 34 cm)</li>
+<li><span>Material System:</span> AMS 2 Pro Multi Material System</li>
+<li><span>Multi-Color:</span> 4 colors/materials in a single print cycle</li>
+<li><span>Environment:</span> Actively heated chamber</li>
+<li><span>Extruder:</span> Closed-loop servo extruder</li>
+<li><span>Kinematics:</span> CoreXY up to 20,000 mm/s² acceleration</li>
+<li><span>Hotend System:</span> Industrial grade hotend up to 350°C</li>
+<li><span>Calibration:</span> Advanced optical motion calibration</li>
+<li><span>Filtration:</span> Carbon air filtration system</li>
+<li><span>Modularity:</span> Optional laser engraving & cutting modules</li>
+<li><span>Warranty:</span> 1-Year official spare parts warranty</li>
+</ul>
+
+<div class="price">Rp 29.589.000</div>
+
+<a href=" https://www.tokopedia.com/3dzaiku/bambulab-h2s-combo-ams-2-pro-dynasense-extruder-multi-color-auto-calibration-with-closed-loop-motor-and-heated-chamber-1732586559405589600-1735590369711785056?extParam=src%3Dshop%26whid%3D3974218&aff_unique_id=&channel=others&chain_key=" target="_blank" class="buy-btn">
+View Product
+</a>
+
+</div>
+
+</div>
+
+<!-- 5: Anycubic Kobra 3 Max Combo -->
+
+<div class="printer-card fade-up">
+
+<div class="printer-image">
+<img src="Anycubic Kobra 3 Max Combo.png" alt="">
+</div>
+
+<div class="printer-content">
+
+<div class="tag">Large Prototype</div>
+
+<h3>Anycubic Kobra 3 Max Combo</h3>
+
+<p>
+Large-scale educational engineering printer with intelligent monitoring systems.
+</p>
+
+<ul class="specs">
+<li><span>Build Volume:</span> 420 × 420 × 500 mm (42 x 42 x 50 cm)</li>
+<li><span>Multi-Color:</span> Multi-color printing capabilities up to 4 colors</li>
+<li><span>Print Speed:</span> Fast performance up to 600 mm/s</li>
+<li><span>Bed Leveling:</span> LeviQ 3.0 auto bed leveling system</li>
+<li><span>Smart Features:</span> AI camera detection systems</li>
+<li><span>Filament Management:</span> AMS unit with integrated filament drying</li>
+<li><span>Optimization:</span> Flow compensation & vibration compensation</li>
+<li><span>Hotend System:</span> Temperatures up to 300°C</li>
+<li><span>Connectivity:</span> Built-in Wi-Fi & Cloud printing support</li>
+<li><span>Warranty:</span> 1-Year official spare parts warranty</li>
+</ul>
+
+<div class="price">Rp 13.800.000</div>
+
+<a href="https://www.tokopedia.com/3dzaiku/anycubic-kobra-3-max-combo-autoleveling-multi-color-3d-printer-with-flow-compensation-1731020625158374492?extParam=src%3Dshop%26whid%3D3974218&aff_unique_id=&channel=others&chain_key=" target="_blank" class="buy-btn">
+View Product
+</a>
+
+</div>
+
+</div>
+
+<!-- 6: Sovol SV08 MAX -->
+
+<div class="printer-card fade-up">
+
+<div class="printer-image">
+<img src="Sovol SV08 MAX.png" alt="">
+</div>
+
+<div class="printer-content">
+
+<div class="tag">Industrial Education</div>
+
+<h3>Sovol SV08 MAX</h3>
+
+<p>
+Industrial CoreXY educational printer for high-volume fabrication workflows.
+</p>
+
+<ul class="specs">
+<li><span>Build Volume:</span> 500 × 500 × 500 mm (50 x 50 x 50 cm)</li>
+<li><span>Architecture:</span> CoreXY system engineered with linear rails</li>
+<li><span>Print Speed:</span> Outstanding speeds up to 700 mm/s</li>
+<li><span>Firmware:</span> Klipper high-speed management system</li>
+<li><span>Monitoring:</span> Integrated camera setup</li>
+<li><span>Drive System:</span> 4 independent Z-axis motors</li>
+<li><span>Bed Leveling:</span> High-accuracy pressure sensor auto leveling</li>
+<li><span>Connectivity:</span> Full Wi-Fi & Ethernet connectivity</li>
+<li><span>Heated Bed:</span> Bed heating output up to 100°C</li>
+<li><span>Warranty:</span> 1-Year official spare parts warranty</li>
+</ul>
+
+<div class="price">Rp 19.500.000</div>
+
+<a href="https://sovol3d.com" target="_blank" class="buy-btn">
+View Product
+</a>
+
+</div>
+
+</div>
+
+<!-- 7: CreatBot D600 Pro HS -->
+
+<div class="printer-card fade-up">
+
+<div class="printer-image">
+<img src="CreatBot D600 Pro HS.png" alt="">
+</div>
+
+<div class="printer-content">
+
+<div class="tag">Research Lab</div>
+
+<h3>CreatBot D600 Pro HS</h3>
+
+<p>
+Full enclosure industrial printer designed for manufacturing advanced functional models.
+</p>
+
+<ul class="specs">
+<li><span>Build Volume:</span> 600 × 600 × 600 mm (60 x 60 x 60 cm)</li>
+<li><span>Enclosure:</span> Fully enclosed industrial thermal design</li>
+<li><span>Extrusion:</span> Dual hotends for multi-material applications</li>
+<li><span>Chamber Heat:</span> Active chamber heating up to 60°C</li>
+<li><span>Hotend System:</span> High-temperature hotend up to 420°C</li>
+<li><span>Materials:</span> Engineering filaments (ABS, Nylon, PC, Carbon Fiber)</li>
+<li><span>Filament Care:</span> Built-in dry chamber for filament protection</li>
+<li><span>Air Filtration:</span> HEPA air purification system</li>
+<li><span>Monitoring:</span> Internal camera monitoring</li>
+<li><span>Safety:</span> Power-loss print recovery automation</li>
+<li><span>Warranty:</span> 1-Year official spare parts warranty</li>
+</ul>
+
+<div class="price">Rp 285.000.000</div>
+
+<a href="https://shopee.co.id/Creatbot-D600-PRO-3D-Printer-Big-Size-60x60x60-CM-Dual-Color-Hotend-i.91196789.17095639817" target="_blank" class="buy-btn">
+View Product
+</a>
+
+</div>
+
+</div>
+
+<!-- 8: ELEGOO Orangestorm Giga -->
+
+<div class="printer-card fade-up">
+
+<div class="printer-image">
+<img src="ELEGOO Orangestorm Giga.png" alt="">
+</div>
+
+<div class="printer-content">
+
+<div class="tag">Mega Scale</div>
+
+<h3>ELEGOO Orangestorm Giga</h3>
+
+<p>
+Ultra-large educational additive manufacturing platform for architecture and engineering.
+</p>
+
+<ul class="specs">
+<li><span>Build Volume:</span> 800 × 800 × 1000 mm (80 x 80 x 100 cm)</li>
+<li><span>Scale Capacity:</span> Ultra-massive format volume structure</li>
+<li><span>Hotend System:</span> Maximum temperature up to 300°C</li>
+<li><span>Heated Bed:</span> Segmented 4-zone smart heating bed</li>
+<li><span>Bed Leveling:</span> Automatic matrix leveling</li>
+<li><span>Print Speed:</span> Steady throughput up to 300 mm/s</li>
+<li><span>Upgradability:</span> Supports expansion to multi-head printing</li>
+<li><span>Safety Sensor:</span> Runout filament detection</li>
+<li><span>Connectivity:</span> Online production via WLAN network</li>
+<li><span>Warranty:</span> 1-Year official spare parts warranty</li>
+</ul>
+
+<div class="price">Rp 37.500.000</div>
+
+<a href="https://www.tokopedia.com/3dzaiku/elegoo-orangestorm-giga-ultra-big-build-volume-800x800x1000-mm-fast-printing-high-temperature-3d-printer-1730785139589743708?extParam=whid%3D3974218%26src%3Dshop&aff_unique_id=&channel=others&chain_key=" target="_blank" class="buy-btn">
+View Product
+</a>
+
+</div>
+
+</div>
+
+<!-- 9: CreatBot F1000 / D1000 -->
+
+<div class="printer-card fade-up">
+
+<div class="printer-image">
+<img src="CreatBot F1000 D1000.png" alt="">
+</div>
+
+<div class="printer-content">
+
+<div class="tag">Enterprise Fabrication</div>
+
+<h3>CreatBot F1000 / D1000</h3>
+
+<p>
+Industrial large format 3D printer designed for high-end heavy engineering workflows.
+</p>
+
+<ul class="specs">
+<li><span>Build Volume:</span> 1000 × 1000 × 1000 mm (1 x 1 x 1 meter)</li>
+<li><span>Classification:</span> Heavy industrial large format manufacturing</li>
+<li><span>Extrusion:</span> Dual-extrusion dual-material mechanics</li>
+<li><span>Thermal Safety:</span> Complete enclosure with active chamber heating</li>
+<li><span>Hotend System:</span> Extreme-heat hotend system reaching 420°C</li>
+<li><span>Materials:</span> Industrial engineering and carbon composites</li>
+<li><span>Monitoring:</span> Live high-definition internal camera monitoring</li>
+<li><span>Air Filtration:</span> Complete HEPA environmental filtration system</li>
+<li><span>Leveling:</span> Automated structural leveling calibration</li>
+<li><span>Filament Care:</span> Humidity-controlled filament drying chamber</li>
+<li><span>Warranty:</span> 1-Year official spare parts warranty</li>
+</ul>
+
+<div class="price">Rp 570.000.000</div>
+
+<a href="https://www.3dfilament.co.id/3d-printer-creatbot-f1000-ultra-big-size-1x1x1-meter-dual-color-hotend-2772" target="_blank" class="buy-btn">
+View Product
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="analytics">
+
+<div class="container">
+
+<div class="section-title fade-up">
+<h2>📊 Performance Analytics</h2>
+
+<p>
+Comparative visualization between printing speed, educational scale, and build volume.
+</p>
+</div>
+
+<div class="chart-box fade-up">
+<h3>Printing Speed Comparison</h3>
+<p>Relationship between printer model and maximum speed.</p>
+<canvas id="speedChart"></canvas>
+</div>
+
+<div class="chart-box fade-up">
+<h3>Build Volume Comparison</h3>
+<p>Relationship between printer model and build height.</p>
+<canvas id="volumeChart"></canvas>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<h2 class="gradient">
+EduPrint Future
+</h2>
+
+<p>
+Transforming classrooms into collaborative innovation ecosystems through intelligent additive manufacturing technologies.
+</p>
+
+<blockquote>
+All machines listed are official products distributed by <strong>PT Tridi Zaiku Indonesia</strong>. Complimentary operation briefings for beginners, engineering machine consultations, and official spare parts support are completely guaranteed.
+</blockquote>
+
+<div class="footer-bottom">
+© 2026 EduPrint Future • HTML • CSS • JavaScript • Chart.js
+</div>
+
+</footer>
+
+<script>
+
+/* ANIMATION */
+
+const fadeElements = document.querySelectorAll('.fade-up');
+
+const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.classList.add('active');
+        }
+    });
+},{
+    threshold:0.15
+});
+
+fadeElements.forEach(el=>{
+    observer.observe(el);
+});
+
+/* RANGE & DYNAMIC RECOMMENDATION */
+
+const budgetRange = document.getElementById('budgetRange');
+const budgetValue = document.getElementById('budgetValue');
+const recommendedPrinter = document.getElementById('recommendedPrinter');
+
+budgetRange.addEventListener('input', ()=>{
+    const value = Number(budgetRange.value);
+    budgetValue.innerHTML = 'Rp ' + value.toLocaleString('id-ID');
+    
+    // Logika menampilkan rekomendasi printer berdasarkan pergeseran budget slider
+    if (value < 6000000) {
+        recommendedPrinter.innerHTML = "Bambu Lab A1 Mini (Perfect for Entry Level STEM)";
+    } else if (value >= 6000000 && value < 9500000) {
+        recommendedPrinter.innerHTML = "Flashforge Adventurer AD5X (Great for Creative Classrooms)";
+    } else if (value >= 9500000 && value < 13000000) {
+        recommendedPrinter.innerHTML = "BambuLab A1 Combo AMS (Multi-color High Speed Support)";
+    } else if (value >= 13000000 && value < 25000000) {
+        recommendedPrinter.innerHTML = "Anycubic Kobra 3 Max Combo / Sovol SV08 MAX (Large Scale Fabrication)";
+    } else if (value >= 25000000 && value < 100000000) {
+        recommendedPrinter.innerHTML = "BambuLab H2S Combo AMS 2 PRO / ELEGOO Orangestorm Giga";
+    } else if (value >= 100000000 && value < 400000000) {
+        recommendedPrinter.innerHTML = "CreatBot D600 Pro HS (Industrial Grade Engineering)";
+    } else {
+        recommendedPrinter.innerHTML = "CreatBot F1000 / D1000 (Mega Format 1-Meter Ecosystem)";
+    }
+});
+
+/* CHART 1 */
+
+new Chart(document.getElementById('speedChart'),{
+    type:'bar',
+    data:{
+        labels:[
+            'A1 Mini',
+            'AD5X',
+            'A1 Combo',
+            'H2S Combo',
+            'Kobra 3 Max',
+            'SV08 MAX',
+            'D600 Pro',
+            'Orangestorm',
+            'F1000 / D1000'
+        ],
+        datasets:[{
+            label:'Speed mm/s',
+            data:[500,600,500,600,600,700,300,300,200],
+            borderRadius:14
+        }]
+    },
+    options:{
+        responsive:true,
+        plugins:{
+            legend:{
+                display:false
+            }
+        }
+    }
+});
+
+/* CHART 2 */
+
+new Chart(document.getElementById('volumeChart'),{
+    type:'line',
+    data:{
+        labels:[
+            'A1 Mini',
+            'AD5X',
+            'A1 Combo',
+            'H2S Combo',
+            'Kobra 3 Max',
+            'SV08 MAX',
+            'D600 Pro',
+            'Orangestorm',
+            'F1000 / D1000'
+        ],
+        datasets:[{
+            label:'Build Height (mm)',
+            data:[180,220,256,340,500,500,600,1000,1000],
+            tension:0.4,
+            fill:false
+        }]
+    },
+    options:{
+        responsive:true
+    }
+});
+
+</script>
+
+</body>
+</html>
